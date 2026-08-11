@@ -1,2 +1,3 @@
 # study-os
 No Description.
+At its initial stage....not a complete operating system right now but I will be...
