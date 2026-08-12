@@ -12,4 +12,4 @@ def init_form(request):
             form.save()
             return HttpResponse("Your Data has been Recordered. Proceed Further")
 
-    return render(request, 'S_form.html', {'form': form})
+    return render(request, 'form.html', {'form': form})
