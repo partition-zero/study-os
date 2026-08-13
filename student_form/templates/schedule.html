@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study OS | Form</title>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'home' %}">Home</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</head>
+<body>
+    <div>
+        <h2>{{ student.name }}'s Schedule</h2>
+        <table class="table">
+            <thead>
+                <tr><th>Day</th><th>Hours Free</th></tr>
+            </thead>
+            <tbody>
+                {% for a in availabilities %}
+                    <tr>
+                        <td>{{ a.get_day_display }}</td>
+                        <td>{{ a.hours_free }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'add-availability' student.pk %}" class="btn btn-secondary">Add another day</a>
+    </div>
+</body>
+</html>

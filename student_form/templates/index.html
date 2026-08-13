@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
     <title>Study OS</title>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'home' %}">Home</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 </head>
 <body>
-
+    <h3>This is Home Page </h3>
+    <a href="{% url 'register-student' %}">Register Here</a>
 </body>
 </html>
