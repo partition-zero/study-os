@@ -10,6 +10,6 @@ def init_form(request):
         form = S_form(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("Your Data has been Recordered. Proceed Further")
+            return HttpResponse("Your Data has been Recordered. Proceed Further") #type: ignore
 
     return render(request, 'form.html', {'form': form})

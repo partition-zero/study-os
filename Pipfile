@@ -7,6 +7,7 @@ name = "pypi"
 django = "*"
 
 [dev-packages]
+django-stubs = "*"
 
 [requires]
 python_version = "3.11"
