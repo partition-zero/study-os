@@ -21,7 +21,8 @@ class add_form(forms.ModelForm):
     mastery=forms.DecimalField(
         label='Mastery',
         help_text='How much you know about topic(s)(%)')
-    av_time=forms.IntegerField()
+    av_time=forms.IntegerField(
+        help_text='How much free time do you have')
     def clean_mstry(self):
         Value =self.cleaned_data['mastery']
         return Value / Decimal('100')

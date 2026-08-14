@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="form.css">
     <title>Study OS | Form</title>
     <header>
         <nav>
@@ -30,12 +31,10 @@
                     <label for='{{ field.if_for_label }}' class='form-label'>
                         {{ field.label }}
                     </label>
+                    <div class="field">
+                        {{ field }}
+                    </div>
 
-                    {{ field }}
-
-                    {% if field.help_text %}
-                        <div class='form-text'>{{ field.help_text }}</div>
-                    {% endif %}
 
                     {% if field.errors %}
                         <div class='text-danger'>
