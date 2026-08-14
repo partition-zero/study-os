@@ -55,7 +55,7 @@ ROOT_URLCONF = 'kernel.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['student_form/template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

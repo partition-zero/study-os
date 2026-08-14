@@ -1,46 +1,36 @@
-from django import forms
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from .models import StudentState, Availability
-from  .forms import add_form , AvailabilityForm
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-def home_page(request):
-    return render(request, 'index.html')
+def landing_view(request):
+    # If they are already logged in, skip the home page and go to dashboard
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    return render(request, 'landing.html')
 
-
-def register_student(request):
-    form=add_form()
-    if request.method == "POST":
-        form =add_form(request.POST)
-        if form.is_valid():
-            student=form.save()
-            return redirect('add-availability', pk=student.pk)
-    else:
-        form = add_form()
-    return render(request, 'form.html', {'form': form})
-
-
-def add_availability(request, pk):
-    student = get_object_or_404(StudentState, pk=pk)
-
+def login_action(request):
     if request.method == 'POST':
-        form = AvailabilityForm(request.POST)
-        if form.is_valid():
-            availability = form.save(commit=False)  # don't save yet
-            availability.student = student           # attach the student
-            availability.save()                      # now save
-            return redirect('student-schedule', pk=student.pk)
-    else:
-        form = AvailabilityForm()
+        # For the overnight build, we'll extract the data from the form
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
-    return render(request, 'availability.html', {'form': form, 'student': student})
+        # Note: Django uses 'username' by default, you may need to map email to username
+        # or use a custom user model. Assuming standard setup for now:
+        user = authenticate(request, username=email, password=password)
 
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')
+        else:
+            # Send them back with an error (keep it simple for now)
+            return render(request, 'landing.html', {'error': 'Invalid credentials'})
 
-def student_schedule(request, pk):
-    student = get_object_or_404(StudentState, pk=pk)
-    availabilities = student.availabilities.all()#type:ignore
-    return render(request, 'schedule.html', {
-        'student': student,
-        'availabilities': availabilities,
-    })
+    return redirect('landing')
+
+def logout_action(request):
+    logout(request)
+    return redirect('landing')
+
+@login_required(login_url='landing')
+def dashboard_view(request):
+    return render(request, 'dashboard.html')
